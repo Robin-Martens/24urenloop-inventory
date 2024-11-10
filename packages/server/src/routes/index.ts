@@ -1,12 +1,13 @@
-import { Router } from "express";
-import { itemRouter } from "./item";
-import { categoryRouter } from "./category";
-import { locationRouter } from "./location";
-import { alive } from "./alive";
+import { Router } from 'express'
 
-export const rootRouter: Router = Router();
+import { alive } from './alive'
+import { categoryRouter } from './category'
+import { itemRouter } from './item'
+import { locationRouter } from './location'
 
-rootRouter.use("/item", itemRouter);
-rootRouter.use("/category", categoryRouter);
-rootRouter.use("/location", locationRouter);
-rootRouter.get("/alive", alive());
+export const rootRouter: Router = Router()
+
+rootRouter.use('/item', itemRouter)
+rootRouter.use('/category', categoryRouter)
+rootRouter.use('/location', locationRouter)
+rootRouter.get('/alive', alive())

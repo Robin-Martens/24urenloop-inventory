@@ -1,32 +1,33 @@
-import { z } from "zod";
-import { route, Handler, parse } from "../../router.ts";
-import { DataResult, dataResultFromPromise } from "../../utils.ts";
-import * as Errors from "../../errors.ts";
-import { errAsync, okAsync } from "neverthrow";
-import { InventoryItemModel } from "../../models/InventoryItem.ts";
+import { errAsync, okAsync } from 'neverthrow'
+import { z } from 'zod'
 
-const itemIdSchema = z.string().nonempty();
+import * as Errors from '../../errors.ts'
+import { InventoryItemModel } from '../../models/InventoryItem.ts'
+import { Handler, parse, route } from '../../router.ts'
+import { DataResult, dataResultFromPromise } from '../../utils.ts'
+
+const itemIdSchema = z.string().nonempty()
 
 export function deleteItem(): Handler {
-  return route((req) =>
+  return route(req =>
     parse(
       itemIdSchema,
       req.params.itemId,
-      "Request path requires an item id!",
-    ).map((itemId) => _deleteItem(itemId)),
-  );
+      'Request path requires an item id!',
+    ).map(itemId => _deleteItem(itemId)),
+  )
 }
 
 function _deleteItem(itemId: string): DataResult<string> {
-  return dataResultFromPromise(async () => {
-    return InventoryItemModel.deleteOne({ _id: itemId });
-  }).andThen((res) => {
+  return dataResultFromPromise(async () =>
+    InventoryItemModel.deleteOne({ _id: itemId }),
+  ).andThen(res => {
     if (!res.acknowledged) {
       return errAsync(
         Errors.serverError(
-          "The delete request is not acknowledged by the database. Please try again.",
+          'The delete request is not acknowledged by the database. Please try again.',
         ),
-      );
+      )
     }
 
     if (res.deletedCount === 0) {
@@ -34,9 +35,9 @@ function _deleteItem(itemId: string): DataResult<string> {
         Errors.notFound(
           `The item with id '${itemId}' was not found, so no items have been deleted.`,
         ),
-      );
+      )
     }
 
-    return okAsync(itemId);
-  });
+    return okAsync(itemId)
+  })
 }

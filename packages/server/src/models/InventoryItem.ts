@@ -1,17 +1,18 @@
-import { Types, Schema, model } from "mongoose";
-import { LocationModel } from "./Location";
-import { CategoryModel } from "./Category";
+import { model, Schema, Types } from 'mongoose'
+
+import { CategoryModel } from './Category'
+import { LocationModel } from './Location'
 
 export type InventoryItem = {
-  name: string;
-  detailName: string | null;
-  amount: number;
-  whereBought: string | null;
-  location: Types.ObjectId;
-  category: Types.ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
-};
+  name: string
+  detailName: string | null
+  amount: number
+  whereBought: string | null
+  location: Types.ObjectId
+  category: Types.ObjectId
+  createdAt: Date
+  updatedAt: Date
+}
 
 export const inventoryItemSchema = new Schema<InventoryItem>(
   {
@@ -21,31 +22,31 @@ export const inventoryItemSchema = new Schema<InventoryItem>(
     whereBought: String,
     location: {
       type: Schema.Types.ObjectId,
-      ref: "LocationModel",
+      ref: 'LocationModel',
       required: true,
     },
     category: {
       type: Schema.Types.ObjectId,
-      ref: "CategoryModel",
+      ref: 'CategoryModel',
       required: true,
     },
   },
   { timestamps: true },
-);
+)
 inventoryItemSchema
-  .path("location")
+  .path('location')
   .validate(
-    async (value) => await LocationModel.findById(value),
-    "Location does not exist.",
-  );
+    async value => await LocationModel.findById(value),
+    'Location does not exist.',
+  )
 inventoryItemSchema
-  .path("category")
+  .path('category')
   .validate(
-    async (value) => await CategoryModel.findById(value),
-    "Category does not exist.",
-  );
+    async value => await CategoryModel.findById(value),
+    'Category does not exist.',
+  )
 
 export const InventoryItemModel = model<InventoryItem>(
-  "InventoryItemModel",
+  'InventoryItemModel',
   inventoryItemSchema,
-);
+)
