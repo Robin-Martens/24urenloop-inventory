@@ -1,0 +1,7 @@
+{
+  "name": "24urenloop-inventory",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ]
+}
