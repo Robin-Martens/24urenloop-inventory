@@ -1,10 +1,10 @@
-import { errAsync, okAsync } from 'neverthrow'
+import { errAsync, okAsync } from 'neverthrow';
 
-import * as Errors from '../../errors.ts'
-import { Location, LocationModel } from '../../models/Location.ts'
-import { Handler, parse, route } from '../../router'
-import { idSchema } from '../../types'
-import { DataResult, dataResultFromPromise } from '../../utils'
+import * as Errors from '../../errors.ts';
+import { Location, LocationModel } from '../../models/Location.ts';
+import { Handler, parse, route } from '../../router';
+import { idSchema } from '../../types';
+import { DataResult, dataResultFromPromise } from '../../utils';
 
 export function get(): Handler {
   return route(req =>
@@ -13,7 +13,7 @@ export function get(): Handler {
       req.params.locationId,
       'Request path requires an location id!',
     ).map(locationId => getLocation(locationId)),
-  )
+  );
 }
 
 export function getLocation(locationId: string): DataResult<Location> {
@@ -21,8 +21,8 @@ export function getLocation(locationId: string): DataResult<Location> {
     LocationModel.findById(locationId),
   ).andThen(location => {
     if (location === null) {
-      return errAsync(Errors.notFound())
+      return errAsync(Errors.notFound());
     }
-    return okAsync(location)
-  })
+    return okAsync(location);
+  });
 }

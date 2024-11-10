@@ -1,14 +1,14 @@
-import { okAsync } from 'neverthrow'
-import { z } from 'zod'
+import { okAsync } from 'neverthrow';
+import { z } from 'zod';
 
-import { LocationModel } from '../../models/Location.ts'
-import { Handler, parse, route } from '../../router'
-import { DataResult, dataResultFromPromise } from '../../utils'
+import { LocationModel } from '../../models/Location.ts';
+import { Handler, parse, route } from '../../router';
+import { DataResult, dataResultFromPromise } from '../../utils';
 
 const addLocationSchema = z.object({
   name: z.string().nonempty(),
   color: z.string().nonempty(),
-})
+});
 
 export function add(): Handler {
   return route(req =>
@@ -17,13 +17,13 @@ export function add(): Handler {
       req.body,
       'Request path requires an location id!',
     ).map(location => _add(location)),
-  )
+  );
 }
 
 function _add(location: AddLocationInfo): DataResult<string> {
   return dataResultFromPromise(async () =>
     LocationModel.create(location),
-  ).andThen(res => okAsync(res.id.toString()))
+  ).andThen(res => okAsync(res.id.toString()));
 }
 
-type AddLocationInfo = z.infer<typeof addLocationSchema>
+type AddLocationInfo = z.infer<typeof addLocationSchema>;

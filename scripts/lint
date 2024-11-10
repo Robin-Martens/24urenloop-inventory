@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+
+REPO_ROOT=$(git rev-parse --show-toplevel)
+
+prettier --ignore-path "${REPO_ROOT}"/.prettierignore -c "**/*.{ts,json,tsx}" || exit 1
+pnpm eslint . || exit 1
+

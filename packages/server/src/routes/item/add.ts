@@ -1,10 +1,10 @@
-import { okAsync } from 'neverthrow'
-import { z } from 'zod'
+import { okAsync } from 'neverthrow';
+import { z } from 'zod';
 
-import { InventoryItemModel } from '../../models/InventoryItem.ts'
-import { Handler, parse, route } from '../../router.ts'
-import { idSchema } from '../../types.ts'
-import { DataResult, dataResultFromPromise } from '../../utils.ts'
+import { InventoryItemModel } from '../../models/InventoryItem.ts';
+import { Handler, parse, route } from '../../router.ts';
+import { idSchema } from '../../types.ts';
+import { DataResult, dataResultFromPromise } from '../../utils.ts';
 
 export function add(): Handler {
   return route(req =>
@@ -13,13 +13,13 @@ export function add(): Handler {
       req.body,
       'Request path requires an item id!',
     ).map(item => _addItem(item)),
-  )
+  );
 }
 
 function _addItem(item: RawInventoryItem): DataResult<string> {
   return dataResultFromPromise(async () =>
     InventoryItemModel.create(item),
-  ).andThen(res => okAsync(res.id.toString()))
+  ).andThen(res => okAsync(res.id.toString()));
 }
 
 export const rawInventoryItemSchema = z
@@ -31,5 +31,5 @@ export const rawInventoryItemSchema = z
     location: idSchema,
     category: idSchema,
   })
-  .strict()
-export type RawInventoryItem = z.infer<typeof rawInventoryItemSchema>
+  .strict();
+export type RawInventoryItem = z.infer<typeof rawInventoryItemSchema>;

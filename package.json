@@ -1,7 +1,31 @@
 {
   "name": "24urenloop-inventory",
   "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "bun --filter='*' run lint",
+    "lint:fix": "bun --filter='*' run lint:fix"
+  },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "arrowParens": "avoid",
+    "tabWidth": 2,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "devDependencies": {
+    "@eslint/compat": "^1.2.2",
+    "@eslint/js": "^9.13.0",
+    "@types/eslint__js": "^8.42.3",
+    "prettier": "^3.3.3",
+    "eslint": "^9.13.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
+    "typescript-eslint": "^8.12.2",
+    "typescript": "^5.6.3"
+  }
 }

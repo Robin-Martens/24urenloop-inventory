@@ -1,11 +1,11 @@
 // originally written by @imoaazahmed
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from 'react';
 
 const ThemeProps = {
-  key: "theme",
-  light: "light",
-  dark: "dark",
+  key: 'theme',
+  light: 'light',
+  dark: 'dark',
 } as const;
 
 type Theme = typeof ThemeProps.light | typeof ThemeProps.dark;
@@ -17,13 +17,9 @@ export const useTheme = (defaultTheme?: Theme) => {
     return storedTheme || (defaultTheme ?? ThemeProps.light);
   });
 
-  const isDark = useMemo(() => {
-    return theme === ThemeProps.dark;
-  }, [theme]);
+  const isDark = useMemo(() => theme === ThemeProps.dark, [theme]);
 
-  const isLight = useMemo(() => {
-    return theme === ThemeProps.light;
-  }, [theme]);
+  const isLight = useMemo(() => theme === ThemeProps.light, [theme]);
 
   const _setTheme = (theme: Theme) => {
     localStorage.setItem(ThemeProps.key, theme);

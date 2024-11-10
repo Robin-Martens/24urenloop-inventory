@@ -1,25 +1,25 @@
-import { Link } from "@nextui-org/link";
-import { Snippet } from "@nextui-org/snippet";
-import { Code } from "@nextui-org/code";
-import { button as buttonStyles } from "@nextui-org/theme";
+import { Code } from '@nextui-org/code';
+import { Link } from '@nextui-org/link';
+import { Snippet } from '@nextui-org/snippet';
+import { button as buttonStyles } from '@nextui-org/theme';
 
-import { siteConfig } from "@/config/site";
-import { title, subtitle } from "@/components/primitives";
-import { GithubIcon } from "@/components/icons";
-import DefaultLayout from "@/layouts/default";
+import { GithubIcon } from '@/components/icons';
+import { subtitle, title } from '@/components/primitives';
+import { siteConfig } from '@/config/site';
+import { DefaultLayout } from '@/layouts/default';
 
-export default function IndexPage() {
+export function IndexPage() {
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">
         <div className="inline-block max-w-lg text-center justify-center">
           <span className={title()}>Make&nbsp;</span>
-          <span className={title({ color: "violet" })}>beautiful&nbsp;</span>
+          <span className={title({ color: 'violet' })}>beautiful&nbsp;</span>
           <br />
           <span className={title()}>
             websites regardless of your design experience.
           </span>
-          <div className={subtitle({ class: "mt-4" })}>
+          <div className={subtitle({ class: 'mt-4' })}>
             Beautiful, fast and modern React UI library.
           </div>
         </div>
@@ -28,9 +28,9 @@ export default function IndexPage() {
           <Link
             isExternal
             className={buttonStyles({
-              color: "primary",
-              radius: "full",
-              variant: "shadow",
+              color: 'primary',
+              radius: 'full',
+              variant: 'shadow',
             })}
             href={siteConfig.links.docs}
           >
@@ -38,7 +38,7 @@ export default function IndexPage() {
           </Link>
           <Link
             isExternal
-            className={buttonStyles({ variant: "bordered", radius: "full" })}
+            className={buttonStyles({ variant: 'bordered', radius: 'full' })}
             href={siteConfig.links.github}
           >
             <GithubIcon size={20} />
@@ -49,7 +49,7 @@ export default function IndexPage() {
         <div className="mt-8">
           <Snippet hideCopyButton hideSymbol variant="bordered">
             <span>
-              Get started by editing{" "}
+              Get started by editing{' '}
               <Code color="primary">pages/index.tsx</Code>
             </span>
           </Snippet>

@@ -1,16 +1,16 @@
-import * as mongoose from 'mongoose'
-import { model } from 'mongoose'
+import * as mongoose from 'mongoose';
+import { model } from 'mongoose';
 
-import { InventoryItemModel } from './InventoryItem'
+import { InventoryItemModel } from './InventoryItem';
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 export type Location = {
-  name: string
-  color: string
-  createdAt: Date
-  updatedAt: Date
-}
+  name: string;
+  color: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 export const locationSchema = new Schema<Location>(
   {
@@ -22,14 +22,14 @@ export const locationSchema = new Schema<Location>(
     },
   },
   { timestamps: true },
-)
+);
 locationSchema.pre('deleteOne', async () => {
-  const items = await InventoryItemModel.find({}).exec()
+  const items = await InventoryItemModel.find({}).exec();
   if (items.length !== 0) {
     throw new Error(
       'You tried deleting a location, for which items are associated. Try deleting those first.',
-    )
+    );
   }
-})
+});
 
-export const LocationModel = model<Location>('LocationModel', locationSchema)
+export const LocationModel = model<Location>('LocationModel', locationSchema);

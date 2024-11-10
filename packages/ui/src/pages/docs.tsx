@@ -1,7 +1,7 @@
-import { title } from "@/components/primitives";
-import DefaultLayout from "@/layouts/default";
+import { title } from '@/components/primitives';
+import { DefaultLayout } from '@/layouts/default';
 
-export default function DocsPage() {
+export function DocsPage() {
   return (
     <DefaultLayout>
       <section className="flex flex-col items-center justify-center gap-4 py-8 md:py-10">

@@ -1,15 +1,15 @@
-import { errAsync, okAsync } from 'neverthrow'
-import { z } from 'zod'
+import { errAsync, okAsync } from 'neverthrow';
+import { z } from 'zod';
 
-import * as Errors from '../../errors.ts'
+import * as Errors from '../../errors.ts';
 import {
   InventoryItem,
   InventoryItemModel,
-} from '../../models/InventoryItem.ts'
-import { Handler, parse, route } from '../../router.ts'
-import { DataResult, dataResultFromPromise } from '../../utils.ts'
+} from '../../models/InventoryItem.ts';
+import { Handler, parse, route } from '../../router.ts';
+import { DataResult, dataResultFromPromise } from '../../utils.ts';
 
-const itemIdSchema = z.string()
+const itemIdSchema = z.string();
 
 export function get(): Handler {
   return route(req =>
@@ -18,7 +18,7 @@ export function get(): Handler {
       req.params.itemId,
       'Request path requires an item id!',
     ).map(itemId => _get(itemId)),
-  )
+  );
 }
 
 function _get(itemId: string): DataResult<InventoryItem> {
@@ -28,9 +28,9 @@ function _get(itemId: string): DataResult<InventoryItem> {
       .exec(),
   ).andThen(item => {
     if (item === null) {
-      return errAsync(Errors.notFound())
+      return errAsync(Errors.notFound());
     }
 
-    return okAsync(item.toObject())
-  })
+    return okAsync(item.toObject());
+  });
 }

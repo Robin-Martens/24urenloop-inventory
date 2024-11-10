@@ -1,10 +1,10 @@
-import { errAsync, okAsync } from 'neverthrow'
+import { errAsync, okAsync } from 'neverthrow';
 
-import * as Errors from '../../errors.ts'
-import { CategoryModel } from '../../models/Category.ts'
-import { Handler, parse, route } from '../../router'
-import { idSchema } from '../../types.ts'
-import { DataResult, dataResultFromPromise } from '../../utils'
+import * as Errors from '../../errors.ts';
+import { CategoryModel } from '../../models/Category.ts';
+import { Handler, parse, route } from '../../router';
+import { idSchema } from '../../types.ts';
+import { DataResult, dataResultFromPromise } from '../../utils';
 
 export function deleteCategory(): Handler {
   return route(req =>
@@ -13,7 +13,7 @@ export function deleteCategory(): Handler {
       req.params.categoryId,
       'Request path requires an category id!',
     ).map(categoryId => _delete(categoryId)),
-  )
+  );
 }
 
 function _delete(categoryId: string): DataResult<string> {
@@ -25,7 +25,7 @@ function _delete(categoryId: string): DataResult<string> {
         Errors.serverError(
           'The delete request is not acknowledged by the database. Please try again.',
         ),
-      )
+      );
     }
 
     if (res.deletedCount === 0) {
@@ -33,9 +33,9 @@ function _delete(categoryId: string): DataResult<string> {
         Errors.notFound(
           `The category with id '${categoryId}' was not found, so no categories have been deleted.`,
         ),
-      )
+      );
     }
 
-    return okAsync(categoryId)
-  })
+    return okAsync(categoryId);
+  });
 }

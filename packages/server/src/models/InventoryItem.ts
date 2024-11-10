@@ -1,18 +1,18 @@
-import { model, Schema, Types } from 'mongoose'
+import { model, Schema, Types } from 'mongoose';
 
-import { CategoryModel } from './Category'
-import { LocationModel } from './Location'
+import { CategoryModel } from './Category';
+import { LocationModel } from './Location';
 
 export type InventoryItem = {
-  name: string
-  detailName: string | null
-  amount: number
-  whereBought: string | null
-  location: Types.ObjectId
-  category: Types.ObjectId
-  createdAt: Date
-  updatedAt: Date
-}
+  name: string;
+  detailName: string | null;
+  amount: number;
+  whereBought: string | null;
+  location: Types.ObjectId;
+  category: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+};
 
 export const inventoryItemSchema = new Schema<InventoryItem>(
   {
@@ -32,21 +32,21 @@ export const inventoryItemSchema = new Schema<InventoryItem>(
     },
   },
   { timestamps: true },
-)
+);
 inventoryItemSchema
   .path('location')
   .validate(
     async value => await LocationModel.findById(value),
     'Location does not exist.',
-  )
+  );
 inventoryItemSchema
   .path('category')
   .validate(
     async value => await CategoryModel.findById(value),
     'Category does not exist.',
-  )
+  );
 
 export const InventoryItemModel = model<InventoryItem>(
   'InventoryItemModel',
   inventoryItemSchema,
-)
+);
